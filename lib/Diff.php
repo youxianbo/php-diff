@@ -43,6 +43,16 @@
  * @link http://github.com/chrisboulton/php-diff
  */
 
+function DiffLoader($class)
+{
+    $path = str_replace('_', DIRECTORY_SEPARATOR, $class);
+    $file = __DIR__ . DIRECTORY_SEPARATOR . $path . '.php';
+    if (file_exists($file)) {
+        require_once $file;
+    }
+}
+spl_autoload_register('DiffLoader');
+
 class Diff
 {
 	/**
