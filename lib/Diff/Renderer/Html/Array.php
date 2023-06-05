@@ -113,21 +113,21 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 
 				if($tag == 'equal') {
 					$lines = array_slice($a, $i1, ($i2 - $i1));
-					$blocks[$lastBlock]['base']['lines'] += $this->formatLines($lines);
+					$blocks[$lastBlock]['base']['lines'] += $this->formatLines($lines??[]);
 					$lines = array_slice($b, $j1, ($j2 - $j1));
-					$blocks[$lastBlock]['changed']['lines'] +=  $this->formatLines($lines);
+					$blocks[$lastBlock]['changed']['lines'] +=  $this->formatLines($lines??[]);
 				}
 				else {
 					if($tag == 'replace' || $tag == 'delete') {
 						$lines = array_slice($a, $i1, ($i2 - $i1));
-						$lines = $this->formatLines($lines);
+						$lines = $this->formatLines($lines??[]);
 						$lines = str_replace(array("\0", "\1"), array('<del>', '</del>'), $lines);
 						$blocks[$lastBlock]['base']['lines'] += $lines;
 					}
 
 					if($tag == 'replace' || $tag == 'insert') {
 						$lines = array_slice($b, $j1, ($j2 - $j1));
-						$lines =  $this->formatLines($lines);
+						$lines =  $this->formatLines($lines??[]);
 						$lines = str_replace(array("\0", "\1"), array('<ins>', '</ins>'), $lines);
 						$blocks[$lastBlock]['changed']['lines'] += $lines;
 					}
